@@ -6,6 +6,11 @@ public class InputHandler : MonoBehaviour
     private bool _isProcessing;
     public event Action MouseButtonPushed;
 
+    private void Start()
+    {
+        _isProcessing = false;
+    }
+
     void Update()
     {
         if (_isProcessing)
