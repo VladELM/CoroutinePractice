@@ -3,20 +3,15 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour
 {
-    private bool _isProcessing;
     public event Action MouseButtonPushed;
+    
+    private int _mouseButtonValue = 0;
 
-    private void Start()
+    private void Update()
     {
-        _isProcessing = false;
-    }
+        if (Input.GetMouseButtonDown(_mouseButtonValue))
+            MouseButtonPushed?.Invoke();
 
-    void Update()
-    {
-        if (_isProcessing)
-            MouseButtonPushed.Invoke();
 
-        if (Input.GetMouseButtonDown(0))
-            _isProcessing = !_isProcessing;
     }
 }
