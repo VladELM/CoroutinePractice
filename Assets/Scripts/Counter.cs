@@ -1,41 +1,60 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class Counter : MonoBehaviour
 {
-    [SerializeField] private InputHandler _inputHandler;
+    [SerializeField] private InputReader _inputHandler;
     [SerializeField] private float _delay = 0.5f;
     [SerializeField] private float _increment = 1f;
     [SerializeField] private float _startValue = 0f;
 
     private Coroutine _coroutine;
     private float _currentValue;
+    private bool _isWorking;
+
+    public event Action CounterValueChanged;
 
     public float CurrentValue => _currentValue;
+
+    private void OnEnable()
+    {
+        _inputHandler.MouseButtonPushed += TurnSwitch;
+    }
 
     private void Start()
     {
         _currentValue = _startValue;
-    }
-
-    private void OnEnable()
-    {
-        _inputHandler.MouseButtonPushed += ChangeValue;
+        _isWorking = false;
     }
 
     private void OnDisable()
     {
-        _inputHandler.MouseButtonPushed -= ChangeValue;
+        _inputHandler.MouseButtonPushed -= TurnSwitch;
     }
 
-    private void ChangeValue()
+    private void TurnSwitch()
     {
-        _coroutine = StartCoroutine(Increase());
-        _currentValue += _increment;
+        _isWorking = !_isWorking;
+
+        if (_isWorking)
+        {
+            _coroutine = StartCoroutine(Increasing());
+        }
+        else
+        {
+            if (_coroutine != null)
+                StopCoroutine(_coroutine);
+        }
     }
 
-    private IEnumerator Increase()
+    private IEnumerator Increasing()
     {
-        yield return new WaitForSeconds(_delay);
+        while (enabled)
+        {
+            yield return new WaitForSeconds(_delay);
+            _currentValue += _increment;
+            CounterValueChanged?.Invoke();
+        }
     }
 }
