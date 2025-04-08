@@ -8,7 +8,7 @@ public class TextView : MonoBehaviour
 
     private void OnEnable()
     {
-        _counter.CounterValueChanged += DisplayValue;
+        _counter.ValueChanged += DisplayValue;
     }
 
     private void Start()
@@ -18,7 +18,7 @@ public class TextView : MonoBehaviour
 
     private void OnDisable()
     {
-        _counter.CounterValueChanged -= DisplayValue;
+        _counter.ValueChanged -= DisplayValue;
     }
 
     private void DisplayValue()

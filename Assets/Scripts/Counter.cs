@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Counter : MonoBehaviour
 {
-    [SerializeField] private InputReader _inputHandler;
+    [SerializeField] private InputReader _inputReader;
     [SerializeField] private float _delay = 0.5f;
     [SerializeField] private float _increment = 1f;
     [SerializeField] private float _startValue = 0f;
@@ -13,13 +13,13 @@ public class Counter : MonoBehaviour
     private float _currentValue;
     private bool _isWorking;
 
-    public event Action CounterValueChanged;
+    public event Action ValueChanged;
 
     public float CurrentValue => _currentValue;
 
     private void OnEnable()
     {
-        _inputHandler.MouseButtonPushed += TurnSwitch;
+        _inputReader.MouseButtonPushed += TurnSwitch;
     }
 
     private void Start()
@@ -30,7 +30,7 @@ public class Counter : MonoBehaviour
 
     private void OnDisable()
     {
-        _inputHandler.MouseButtonPushed -= TurnSwitch;
+        _inputReader.MouseButtonPushed -= TurnSwitch;
     }
 
     private void TurnSwitch()
@@ -54,7 +54,7 @@ public class Counter : MonoBehaviour
         {
             yield return new WaitForSeconds(_delay);
             _currentValue += _increment;
-            CounterValueChanged?.Invoke();
+            ValueChanged?.Invoke();
         }
     }
 }
