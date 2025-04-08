@@ -640,7 +640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fbdb920078f4eb459fa249b3fb1ba42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputHandler: {fileID: 1245399187}
+  _inputReader: {fileID: 1245399187}
   _delay: 0.5
   _increment: 1
   _startValue: 0
@@ -656,7 +656,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34edccca8a0ee144eaab4d9732469e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputHandler: {fileID: 1245399187}
   _counter: {fileID: 1245399188}
   _textMeshPro: {fileID: 1245399185}
 --- !u!1660057539 &9223372036854775807
